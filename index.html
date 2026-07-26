@@ -66,6 +66,30 @@ section { position: relative; z-index: 1; min-height: 100vh; display: flex; flex
 .lightbox .prev { left: 20px; }
 .lightbox .next { right: 20px; }
 
+.resume-card { display: flex; flex-direction: column; align-items: center; text-align: center; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 20px; padding: 50px 40px; max-width: 550px; }
+.resume-card .icon { font-size: 3rem; margin-bottom: 16px; }
+.resume-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+.resume-card p { color: #888; font-size: .9rem; margin-bottom: 28px; line-height: 1.6; }
+.resume-card .btn-resume { padding: 14px 48px; background: linear-gradient(135deg, #6366f1, #a855f7); border: none; border-radius: 10px; color: #fff; font-weight: 700; font-size: 1rem; text-decoration: none; transition: all .3s; display: inline-flex; align-items: center; gap: 10px; }
+.resume-card .btn-resume:hover { transform: translateY(-3px); box-shadow: 0 10px 35px rgba(99,102,241,.4); }
+.resume-card .btn-resume .arrow { transition: transform .3s; }
+.resume-card .btn-resume:hover .arrow { transform: translateX(4px); }
+.resume-card .resume-links { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; justify-content: center; }
+.resume-card .resume-links a { color: #888; font-size: .85rem; text-decoration: none; transition: color .3s; }
+.resume-card .resume-links a:hover { color: #6366f1; }
+
+.connect-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; max-width: 850px; width: 100%; }
+.connect-card { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; padding: 32px 28px; text-decoration: none; color: inherit; transition: all .4s; display: flex; align-items: center; gap: 18px; }
+.connect-card:hover { transform: translateY(-4px); background: rgba(255,255,255,.06); border-color: rgba(99,102,241,.3); box-shadow: 0 8px 30px rgba(0,0,0,.4); }
+.connect-card .ci { font-size: 1.6rem; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.connect-card .ci.github { background: rgba(255,255,255,.08); color: #fff; }
+.connect-card .ci.linkedin { background: rgba(10,102,194,.15); color: #0a66c2; }
+.connect-card .ci.instagram { background: rgba(228,64,95,.15); color: #e4405f; }
+.connect-card .ci.email { background: rgba(234,67,53,.12); color: #ea4335; }
+.connect-card .ci.whatsapp { background: rgba(37,211,102,.12); color: #25d366; }
+.connect-card .connect-info h4 { font-size: 1rem; font-weight: 600; }
+.connect-card .connect-info span { font-size: .8rem; color: #888; }
+
 .contact-form { max-width: 600px; }
 .contact-form input, .contact-form textarea { width: 100%; padding: 14px 18px; margin-bottom: 14px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; color: #fff; font-family: 'Inter', sans-serif; font-size: .9rem; outline: none; transition: border .3s; }
 .contact-form input:focus, .contact-form textarea:focus { border-color: #6366f1; }
@@ -98,8 +122,8 @@ nav { padding: 16px 24px; }
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
     <a href="#certificates">Certificates</a>
-    <a href="resume.pdf" target="_blank">Resume</a>
-    <a href="#contact">Contact</a>
+    <a href="#resume">Resume</a>
+    <a href="#connect">Connect</a>
   </div>
 </nav>
 
@@ -108,9 +132,9 @@ nav { padding: 16px 24px; }
   <h1>Building the<br>Future with Code</h1>
   <p class="subtitle">21+ projects spanning embedded systems, AI, quant finance, full-stack web, VLSI, and computer vision.</p>
   <div class="cta">
-    <a href="resume.pdf" target="_blank" class="primary">View Resume</a>
+    <a href="#resume" class="primary">View Resume</a>
     <a href="#projects" class="secondary">Explore Projects</a>
-    <a href="https://github.com/VARUN122134" class="secondary" target="_blank">GitHub →</a>
+    <a href="#connect" class="secondary">Connect With Me</a>
   </div>
 </section>
 
@@ -220,20 +244,54 @@ nav { padding: 16px 24px; }
   </div>
 </section>
 
-<section id="contact">
-  <div class="section-label">Contact</div>
-  <h2 class="section-title">Let's Connect</h2>
-  <div class="contact-form">
-    <input type="text" placeholder="Name" id="name">
-    <input type="email" placeholder="Email" id="email">
-    <textarea placeholder="Message" id="message"></textarea>
-    <button onclick="alert('Message sent! (Demo — add your email backend)')">Send Message</button>
+<section id="resume">
+  <div class="section-label">Resume</div>
+  <h2 class="section-title">Download My Resume</h2>
+  <div class="resume-card">
+    <div class="icon">&#128196;</div>
+    <h3>Varun C</h3>
+    <p>ECE Undergraduate | Embedded &amp; AI Developer<br>21+ projects across hardware, AI, quant finance, and full-stack.</p>
+    <a href="resume.pdf" target="_blank" class="btn-resume">
+      Download Resume <span class="arrow">&rarr;</span>
+    </a>
+    <div class="resume-links">
+      <a href="resume.pdf" target="_blank">Open in browser</a>
+      <span style="color:#333">|</span>
+      <a href="https://github.com/VARUN122134" target="_blank">View on GitHub</a>
+    </div>
   </div>
-  <div class="social-links" style="margin-top:30px;">
-    <a href="https://github.com/VARUN122134" target="_blank">GitHub</a>
-    <a href="https://linkedin.com/in/varunc" target="_blank">LinkedIn</a>
-    <a href="https://www.instagram.com/mr_varun_c/" target="_blank">Instagram</a>
-    <a href="mailto:mr.varun1980@gmail.com">Email</a>
+</section>
+
+<section id="connect">
+  <div class="section-label">Connect</div>
+  <h2 class="section-title">Let's Connect</h2>
+  <div class="connect-grid">
+    <a class="connect-card" href="https://github.com/VARUN122134" target="_blank">
+      <div class="ci github">&#60;&#62;</div>
+      <div class="connect-info"><h4>GitHub</h4><span>@VARUN122134 &middot; 22+ repos</span></div>
+    </a>
+    <a class="connect-card" href="https://linkedin.com/in/varunc" target="_blank">
+      <div class="ci linkedin">in</div>
+      <div class="connect-info"><h4>LinkedIn</h4><span>Connect professionally</span></div>
+    </a>
+    <a class="connect-card" href="https://www.instagram.com/mr_varun_c/" target="_blank">
+      <div class="ci instagram">&#64;</div>
+      <div class="connect-info"><h4>Instagram</h4><span>@mr_varun_c</span></div>
+    </a>
+    <a class="connect-card" href="mailto:mr.varun1980@gmail.com">
+      <div class="ci email">&#9993;</div>
+      <div class="connect-info"><h4>Email</h4><span>mr.varun1980@gmail.com</span></div>
+    </a>
+    <a class="connect-card" href="https://wa.me/919489610076" target="_blank">
+      <div class="ci whatsapp">&#128222;</div>
+      <div class="connect-info"><h4>WhatsApp</h4><span>+91 94896 10076</span></div>
+    </a>
+  </div>
+  <div class="contact-form" style="margin-top:50px; max-width:600px;">
+    <input type="text" placeholder="Your Name" id="name">
+    <input type="email" placeholder="Your Email" id="email">
+    <textarea placeholder="Your Message" id="message"></textarea>
+    <button onclick="alert('Thanks for reaching out! I\'ll get back to you soon.')">Send Message</button>
   </div>
 </section>
 
