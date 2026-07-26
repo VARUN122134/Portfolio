@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varun C — Portfolio</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e0e0e0; overflow-x: hidden; }
+#canvas-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(180deg, rgba(10,10,15,.9) 60%, transparent); }
+.logo { font-size: 1.3rem; font-weight: 800; background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.nav-links { display: flex; gap: 30px; }
+.nav-links a { color: #999; text-decoration: none; font-size: .85rem; font-weight: 500; transition: color .3s; letter-spacing: .5px; }
+.nav-links a:hover { color: #fff; }
+
+section { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 100px 60px; }
+.hero { align-items: center; text-align: center; }
+.hero h1 { font-size: clamp(2.5rem, 8vw, 6rem); font-weight: 900; line-height: 1.05; background: linear-gradient(135deg, #fff 30%, #6366f1 70%, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero .subtitle { font-size: clamp(1rem, 2vw, 1.3rem); color: #888; margin-top: 20px; max-width: 650px; font-weight: 300; letter-spacing: .3px; }
+.hero .tagline { font-size: .9rem; color: #6366f1; margin-top: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+.hero .cta { margin-top: 35px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.hero .cta a { padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: .9rem; transition: all .3s; }
+.hero .cta .primary { background: linear-gradient(135deg, #6366f1, #a855f7); color: #fff; }
+.hero .cta .primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(99,102,241,.4); }
+.hero .cta .secondary { border: 1px solid #333; color: #ccc; }
+.hero .cta .secondary:hover { border-color: #6366f1; color: #fff; }
+
+.section-label { font-size: .75rem; color: #6366f1; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+.section-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; margin-bottom: 40px; }
+
+.about { max-width: 800px; }
+.about p { font-size: 1.05rem; line-height: 1.8; color: #aaa; margin-bottom: 16px; }
+.about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 35px; }
+.about-item { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 12px; padding: 24px; transition: all .3s; }
+.about-item:hover { background: rgba(99,102,241,.08); border-color: rgba(99,102,241,.2); transform: translateY(-3px); }
+.about-item h3 { font-size: .8rem; color: #6366f1; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+.about-item p { font-size: .9rem; color: #999; margin: 0; }
+
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; }
+.project-card { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; padding: 28px; transition: all .4s; cursor: pointer; text-decoration: none; color: inherit; display: block; }
+.project-card:hover { transform: translateY(-6px); background: rgba(255,255,255,.06); border-color: rgba(99,102,241,.3); box-shadow: 0 12px 40px rgba(0,0,0,.4); }
+.project-card .cat { font-size: .65rem; text-transform: uppercase; letter-spacing: 2px; color: #6366f1; font-weight: 700; margin-bottom: 8px; }
+.project-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+.project-card p { font-size: .85rem; color: #888; line-height: 1.6; }
+.project-card .stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.project-card .stack span { font-size: .7rem; padding: 4px 10px; border-radius: 20px; background: rgba(99,102,241,.12); color: #a5b4fc; font-weight: 500; }
+
+.contact-form { max-width: 600px; }
+.contact-form input, .contact-form textarea { width: 100%; padding: 14px 18px; margin-bottom: 14px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; color: #fff; font-family: 'Inter', sans-serif; font-size: .9rem; outline: none; transition: border .3s; }
+.contact-form input:focus, .contact-form textarea:focus { border-color: #6366f1; }
+.contact-form textarea { height: 140px; resize: vertical; }
+.contact-form button { padding: 14px 40px; background: linear-gradient(135deg, #6366f1, #a855f7); border: none; border-radius: 10px; color: #fff; font-weight: 700; font-size: .9rem; cursor: pointer; transition: all .3s; }
+.contact-form button:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(99,102,241,.4); }
+
+.social-links { display: flex; gap: 16px; margin-top: 20px; }
+.social-links a { color: #666; font-size: .9rem; text-decoration: none; transition: color .3s; }
+.social-links a:hover { color: #6366f1; }
+
+footer { position: relative; z-index: 1; text-align: center; padding: 40px; font-size: .8rem; color: #444; border-top: 1px solid rgba(255,255,255,.04); }
+
+@media(max-width:768px){
+section { padding: 80px 24px; }
+nav { padding: 16px 24px; }
+.nav-links { gap: 16px; }
+.nav-links a { font-size: .75rem; }
+.projects-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="canvas-container"></div>
+
+<nav>
+  <div class="logo">VARUN C</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="tagline">ECE Student &middot; Embedded AI Developer</div>
+  <h1>Building the<br>Future with Code</h1>
+  <p class="subtitle">21+ projects spanning embedded systems, AI, quant finance, full-stack web, VLSI, and computer vision.</p>
+  <div class="cta">
+    <a href="#projects" class="primary">Explore Projects</a>
+    <a href="https://github.com/VARUN122134" class="secondary" target="_blank">GitHub →</a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-label">About</div>
+  <h2 class="section-title">Turning Ideas into <span style="background:linear-gradient(135deg,#6366f1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Reality</span></h2>
+  <div class="about">
+    <p>I'm a 2nd-year Electronics and Communication Engineering student at Anna University (UCE Ariyalur) passionate about bridging hardware with modern AI software.</p>
+    <p>My work spans building physical IoT systems, designing AI architectures, developing algorithmic trading platforms, and crafting full-stack web/mobile applications. I leverage AI-assisted development to accelerate prototyping and optimize firmware.</p>
+  </div>
+  <div class="about-grid">
+    <div class="about-item"><h3>Hardware</h3><p>ESP32, NodeMCU, Arduino, Sensors, Circuit Prototyping</p></div>
+    <div class="about-item"><h3>AI &amp; Vision</h3><p>MediaPipe, OpenCV, ChromaDB, LLM Integration, LiteLLM</p></div>
+    <div class="about-item"><h3>Full-Stack</h3><p>FastAPI, React, Next.js, Supabase, Firebase, Capacitor</p></div>
+    <div class="about-item"><h3>Quant Finance</h3><p>Fyers API, Angel One, yfinance, Strategy Backtesting</p></div>
+    <div class="about-item"><h3>Languages</h3><p>C, C++, Python, JavaScript, Verilog, Dart, Embedded C</p></div>
+    <div class="about-item"><h3>VLSI &amp; Digital</h3><p>Verilog, Icarus Verilog, Verilator, FPGA Simulation</p></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-label">Projects</div>
+  <h2 class="section-title">Featured Work</h2>
+  <div class="projects-grid">
+
+    <a class="project-card" href="https://github.com/VARUN122134/Hostel-Management-System" target="_blank">
+      <div class="cat">Full-Stack</div>
+      <h3>Hostel Management System</h3>
+      <p>5-role HMS with QR outpass, mess management, real-time dashboards, and Android APK via Capacitor. Supabase + Vite.</p>
+      <div class="stack"><span>Supabase</span><span>Vite</span><span>Capacitor</span><span>Chart.js</span></div>
+    </a>
+
+    <a class="project-card" href="https://github.com/VARUN122134/Project-Zero" target="_blank">
+      <div class="cat">AI / Systems</div>
+      <h3>Project Zero</h3>
+      <p>Autonomous AI agent with 4 specialist roles, ChromaDB vector memory, and autonomous goal execution via /goal.</p>
+      <div class="stack"><span>LiteLLM</span><span>ChromaDB</span><span>FastAPI</span><span>Groq/Gemini</span></div>
+    </a>
+
+    <a class="project-card" href="https://github.com/VARUN122134/AI-Interview-Simulator" target="_blank">
+      <div class="cat">AI / Web</div>
+      <h3>AI Interview Simulator</h3>
+      <p>AI-proctored video interviews with resume parsing, automatic question generation, and candidate fit scoring.</p>
+      <div class="stack"><span>Next.js</span><span>FastAPI</span><span>Firebase</span><span>Framer Motion</span></div>
+    </a>
+
+    <a class="project-card" href="https://github.com/VARUN122134/ALS" target="_blank">
+      <div class="cat">Assistive Tech</div>
+      <h3>ALS — Eye-Blink Communicator</h3>
+      <p>Computer-vision-based assistive communication using MediaPipe eye tracking. Blink patterns trigger TTS messages.</p>
+      <div class="stack"><span>OpenCV</span><span>MediaPipe</span><span>Python</span><span>pyttsx3</span></div>
+    </a>
+
+    <a class="project-card" href="https://github.com/VARUN122134/TRADE-2026" target="_blank">
+      <div class="cat">FinTech / Quant</div>
+      <h3>TRADE 2026</h3>
+      <p>Full-stack algo trading bot with WebSocket live P&L, Angel One integration, and backtesting engine.</p>
+      <div class="stack"><span>FastAPI</span><span>React 19</span><span>WebSocket</span><span>Angel One</span></div>
+    </a>
+
+    <a class="project-card" href="https://github.com/VARUN122134/Digital-Clock-Vibe" target="_blank">
+      <div class="cat">VLSI / Hardware</div>
+      <h3>Digital Clock Vibe</h3>
+      <p>Advanced Verilog digital clock with alarm, stopwatch, 12/24h mode, and 4 operation modes on FPGA.</p>
+      <div class="stack"><span>Verilog</span><span>Icarus Verilog</span><span>FPGA</span></div>
+    </a>
+
+    <a class="project-card" href="https://github.com/VARUN122134/WhatsApp-Simulator" target="_blank">
+      <div class="cat">Mobile</div>
+      <h3>WhatsApp Simulator</h3>
+      <p>Full Flutter-based WhatsApp clone with voice calling via Agora, biometric lock, and Firebase backend.</p>
+      <div class="stack"><span>Flutter</span><span>Firebase</span><span>Agora</span></div>
+    </a>
+
+    <a class="project-card" href="https://github.com/VARUN122134/LMS-Liquid-Motherboard" target="_blank">
+      <div class="cat">Creative 3D</div>
+      <h3>LMS — Liquid Motherboard</h3>
+      <p>Interactive 3D motherboard simulation with GSAP assembly animations, procedural audio, and birthday overclock.</p>
+      <div class="stack"><span>Three.js</span><span>GSAP</span><span>Web Audio</span></div>
+    </a>
+
+    <a class="project-card" href="https://github.com/VARUN122134/Virtual-UI" target="_blank">
+      <div class="cat">Computer Vision</div>
+      <h3>Virtual UI</h3>
+      <p>Hand gesture control system: virtual mouse, air writing, gesture snake game, calculator, PPT control.</p>
+      <div class="stack"><span>OpenCV</span><span>MediaPipe</span><span>Python</span><span>pyautogui</span></div>
+    </a>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2 class="section-title">Let's Connect</h2>
+  <div class="contact-form">
+    <input type="text" placeholder="Name" id="name">
+    <input type="email" placeholder="Email" id="email">
+    <textarea placeholder="Message" id="message"></textarea>
+    <button onclick="alert('Message sent! (Demo — add your email backend)')">Send Message</button>
+  </div>
+  <div class="social-links" style="margin-top:30px;">
+    <a href="https://github.com/VARUN122134" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/varunc" target="_blank">LinkedIn</a>
+    <a href="mailto:mr.varun1980@gmail.com">Email</a>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Varun C — Built with Three.js
+</footer>
+
+<script>
+const container = document.getElementById('canvas-container');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, .1, 1000);
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+container.appendChild(renderer.domElement);
+
+const group = new THREE.Group();
+scene.add(group);
+
+const geometries = [
+  new THREE.IcosahedronGeometry(.5, 0),
+  new THREE.OctahedronGeometry(.5, 0),
+  new THREE.TorusGeometry(.35, .15, 12, 24),
+  new THREE.TorusKnotGeometry(.3, .1, 64, 8),
+  new THREE.DodecahedronGeometry(.4, 0),
+];
+const colors = [0x6366f1, 0xa855f7, 0x06b6d4, 0x22c55e, 0xf59e0b];
+
+for (let i = 0; i < 45; i++) {
+  const geo = geometries[i % geometries.length];
+  const mat = new THREE.MeshBasicMaterial({
+    color: colors[i % colors.length],
+    wireframe: true,
+    transparent: true,
+    opacity: .15 + Math.random() * .25
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos(2 * Math.random() - 1);
+  const r = 8 + Math.random() * 18;
+  mesh.position.set(
+    r * Math.sin(phi) * Math.cos(theta),
+    r * Math.sin(phi) * Math.sin(theta),
+    r * Math.cos(phi)
+  );
+  mesh.scale.setScalar(.5 + Math.random() * 1.5);
+  mesh.userData = { speed: .1 + Math.random() * .3, rotSpeed: .002 + Math.random() * .008 };
+  group.add(mesh);
+}
+
+const starsGeo = new THREE.BufferGeometry();
+const starCount = 2000;
+const starPos = new Float32Array(starCount * 3);
+for (let i = 0; i < starCount * 3; i++) starPos[i] = (Math.random() - .5) * 120;
+starsGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: .06, transparent: true, opacity: .6 });
+const stars = new THREE.Points(starsGeo, starMat);
+scene.add(stars);
+
+camera.position.z = 20;
+
+let mouseX = 0, mouseY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = (e.clientX / window.innerWidth - .5) * 2;
+  mouseY = (e.clientY / window.innerHeight - .5) * 2;
+});
+
+function animate() {
+  requestAnimationFrame(animate);
+  group.rotation.x += .0008;
+  group.rotation.y += .0012;
+  group.rotation.z += .0004;
+
+  group.children.forEach((mesh, i) => {
+    mesh.rotation.x += mesh.userData.rotSpeed * 1.5;
+    mesh.rotation.y += mesh.userData.rotSpeed * 2;
+    const offset = i * .1;
+    mesh.position.x += Math.sin(Date.now() * .0005 + offset) * .002;
+    mesh.position.y += Math.cos(Date.now() * .0006 + offset) * .002;
+  });
+
+  stars.rotation.x = mouseY * .02;
+  stars.rotation.y = mouseX * .02;
+
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
