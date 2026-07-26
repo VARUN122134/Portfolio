@@ -203,7 +203,19 @@ nav { padding: 16px 24px; }
 <section id="certificates">
   <div class="section-label">Certificates</div>
   <h2 class="section-title">Continuous Learning</h2>
-  <div class="certs-grid" id="certsGrid"></div>
+  <div class="certs-grid" id="certsGrid">
+    <div class="cert-card" onclick="openCert(0)"><img src="certificates/AI Fluency for Students.jpg" alt="AI Fluency for Students" loading="lazy"><div class="cert-overlay"><span>AI Fluency for Students</span></div></div>
+    <div class="cert-card" onclick="openCert(1)"><img src="certificates/AI for Beginners.jpg" alt="AI for Beginners" loading="lazy"><div class="cert-overlay"><span>AI for Beginners</span></div></div>
+    <div class="cert-card" onclick="openCert(2)"><img src="certificates/AI role in business.jpg" alt="AI role in business" loading="lazy"><div class="cert-overlay"><span>AI role in business</span></div></div>
+    <div class="cert-card" onclick="openCert(3)"><img src="certificates/Artical.jpg" alt="Artical" loading="lazy"><div class="cert-overlay"><span>Artical</span></div></div>
+    <div class="cert-card" onclick="openCert(4)"><img src="certificates/Data Science &amp; Analytics.jpg" alt="Data Science &amp; Analytics" loading="lazy"><div class="cert-overlay"><span>Data Science &amp; Analytics</span></div></div>
+    <div class="cert-card" onclick="openCert(5)"><img src="certificates/Digital Marketing intern.jpg" alt="Digital Marketing intern" loading="lazy"><div class="cert-overlay"><span>Digital Marketing intern</span></div></div>
+    <div class="cert-card" onclick="openCert(6)"><img src="certificates/Effective Presentations.jpg" alt="Effective Presentations" loading="lazy"><div class="cert-overlay"><span>Effective Presentations</span></div></div>
+    <div class="cert-card" onclick="openCert(7)"><img src="certificates/Fundamental of electronics.jpg" alt="Fundamental of electronics" loading="lazy"><div class="cert-overlay"><span>Fundamental of electronics</span></div></div>
+    <div class="cert-card" onclick="openCert(8)"><img src="certificates/Git &amp; GitHub.jpg" alt="Git &amp; GitHub" loading="lazy"><div class="cert-overlay"><span>Git &amp; GitHub</span></div></div>
+    <div class="cert-card" onclick="openCert(9)"><img src="certificates/Introduction to Agent Skills.jpg" alt="Introduction to Agent Skills" loading="lazy"><div class="cert-overlay"><span>Introduction to Agent Skills</span></div></div>
+    <div class="cert-card" onclick="openCert(10)"><img src="certificates/Professional Networking for Career Growth.jpg" alt="Professional Networking for Career Growth" loading="lazy"><div class="cert-overlay"><span>Professional Networking for Career Growth</span></div></div>
+  </div>
 </section>
 
 <section id="contact">
@@ -234,35 +246,16 @@ nav { padding: 16px 24px; }
 </footer>
 
 <script>
-const certs = [
+const certFiles = [
   "AI Fluency for Students.jpg","AI for Beginners.jpg","AI role in business.jpg",
   "Artical.jpg","Data Science & Analytics.jpg","Digital Marketing intern.jpg",
   "Effective Presentations.jpg","Fundamental of electronics.jpg","Git & GitHub.jpg",
   "Introduction to Agent Skills.jpg","Professional Networking for Career Growth.jpg"
 ];
-const grid = document.getElementById('certsGrid');
-let lightboxIndex = 0;
-certs.forEach((f, i) => {
-  const div = document.createElement('div');
-  div.className = 'cert-card';
-  div.innerHTML = `<img src="certificates/${f}" alt="${f.replace('.jpg','')}" loading="lazy"><div class="cert-overlay"><span>${f.replace('.jpg','')}</span></div>`;
-  div.onclick = () => openLightbox(i);
-  grid.appendChild(div);
-});
-function openLightbox(i) {
-  lightboxIndex = i;
-  document.getElementById('lightboxImg').src = "certificates/" + certs[i];
-  document.getElementById('lightbox').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('active');
-  document.body.style.overflow = '';
-}
-function navigateLightbox(dir) {
-  lightboxIndex = (lightboxIndex + dir + certs.length) % certs.length;
-  document.getElementById('lightboxImg').src = "certificates/" + certs[lightboxIndex];
-}
+let certIdx = 0;
+function openCert(i) { certIdx = i; document.getElementById('lightboxImg').src = "certificates/"+certFiles[i]; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
+function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
+function navigateLightbox(d) { certIdx = (certIdx + d + certFiles.length) % certFiles.length; document.getElementById('lightboxImg').src = "certificates/"+certFiles[certIdx]; }
 document.addEventListener('keydown', e => {
   const lb = document.getElementById('lightbox');
   if (!lb.classList.contains('active')) return;
