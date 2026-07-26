@@ -49,6 +49,23 @@ section { position: relative; z-index: 1; min-height: 100vh; display: flex; flex
 .project-card .stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
 .project-card .stack span { font-size: .7rem; padding: 4px 10px; border-radius: 20px; background: rgba(99,102,241,.12); color: #a5b4fc; font-weight: 500; }
 
+.certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; max-width: 1100px; }
+.cert-card { position: relative; border-radius: 12px; overflow: hidden; cursor: pointer; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); transition: all .4s; aspect-ratio: 1/1.3; }
+.cert-card:hover { transform: translateY(-4px); border-color: rgba(99,102,241,.3); box-shadow: 0 8px 30px rgba(0,0,0,.4); }
+.cert-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cert-card .cert-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(transparent, rgba(10,10,15,.95)); }
+.cert-card .cert-overlay span { font-size: .75rem; font-weight: 600; color: #e0e0e0; }
+
+.lightbox { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,.95); z-index: 9999; justify-content: center; align-items: center; padding: 40px; }
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 8px; }
+.lightbox .close { position: absolute; top: 20px; right: 30px; font-size: 2rem; color: #fff; cursor: pointer; opacity: .7; transition: opacity .3s; background: none; border: none; font-family: inherit; }
+.lightbox .close:hover { opacity: 1; }
+.lightbox .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,.1); border: none; color: #fff; font-size: 2rem; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; transition: background .3s; display: flex; align-items: center; justify-content: center; }
+.lightbox .nav-btn:hover { background: rgba(255,255,255,.2); }
+.lightbox .prev { left: 20px; }
+.lightbox .next { right: 20px; }
+
 .contact-form { max-width: 600px; }
 .contact-form input, .contact-form textarea { width: 100%; padding: 14px 18px; margin-bottom: 14px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; color: #fff; font-family: 'Inter', sans-serif; font-size: .9rem; outline: none; transition: border .3s; }
 .contact-form input:focus, .contact-form textarea:focus { border-color: #6366f1; }
@@ -80,6 +97,7 @@ nav { padding: 16px 24px; }
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
+    <a href="#certificates">Certificates</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
@@ -182,6 +200,12 @@ nav { padding: 16px 24px; }
   </div>
 </section>
 
+<section id="certificates">
+  <div class="section-label">Certificates</div>
+  <h2 class="section-title">Continuous Learning</h2>
+  <div class="certs-grid" id="certsGrid"></div>
+</section>
+
 <section id="contact">
   <div class="section-label">Contact</div>
   <h2 class="section-title">Let's Connect</h2>
@@ -198,10 +222,55 @@ nav { padding: 16px 24px; }
   </div>
 </section>
 
+<div class="lightbox" id="lightbox">
+  <button class="close" onclick="closeLightbox()">&times;</button>
+  <button class="nav-btn prev" onclick="navigateLightbox(-1)">&#8249;</button>
+  <img id="lightboxImg" src="" alt="">
+  <button class="nav-btn next" onclick="navigateLightbox(1)">&#8250;</button>
+</div>
+
 <footer>
   &copy; 2026 Varun C — Built with Three.js
 </footer>
 
+<script>
+const certs = [
+  "AI Fluency for Students.jpg","AI for Beginners.jpg","AI role in business.jpg",
+  "Artical.jpg","Data Science & Analytics.jpg","Digital Marketing intern.jpg",
+  "Effective Presentations.jpg","Fundamental of electronics.jpg","Git & GitHub.jpg",
+  "Introduction to Agent Skills.jpg","Professional Networking for Career Growth.jpg"
+];
+const grid = document.getElementById('certsGrid');
+let lightboxIndex = 0;
+certs.forEach((f, i) => {
+  const div = document.createElement('div');
+  div.className = 'cert-card';
+  div.innerHTML = `<img src="certificates/${f}" alt="${f.replace('.jpg','')}" loading="lazy"><div class="cert-overlay"><span>${f.replace('.jpg','')}</span></div>`;
+  div.onclick = () => openLightbox(i);
+  grid.appendChild(div);
+});
+function openLightbox(i) {
+  lightboxIndex = i;
+  document.getElementById('lightboxImg').src = "certificates/" + certs[i];
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function navigateLightbox(dir) {
+  lightboxIndex = (lightboxIndex + dir + certs.length) % certs.length;
+  document.getElementById('lightboxImg').src = "certificates/" + certs[lightboxIndex];
+}
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navigateLightbox(-1);
+  if (e.key === 'ArrowRight') navigateLightbox(1);
+});
+</script>
 <script>
 const container = document.getElementById('canvas-container');
 const scene = new THREE.Scene();
