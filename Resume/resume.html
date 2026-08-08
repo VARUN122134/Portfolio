@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Varun C — Resume</title>
+<style>
+  @page { size: A4; margin: 15mm 18mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; font-size: 10pt; line-height: 1.45; color: #1a1a1a; background: #fff; max-width: 210mm; margin: 0 auto; padding: 15mm 18mm; }
+  h1 { font-size: 20pt; font-weight: 700; letter-spacing: 0.5px; }
+  .subhead { font-size: 10pt; color: #2563eb; font-weight: 600; margin-top: 2px; }
+  .contact { font-size: 9pt; color: #555; margin-top: 4px; display: flex; flex-wrap: wrap; gap: 4px 18px; }
+  .contact a { color: #2563eb; text-decoration: none; }
+  hr { border: none; border-top: 2px solid #2563eb; margin: 10px 0 8px 0; }
+  .section-title { font-size: 11pt; font-weight: 700; color: #2563eb; text-transform: uppercase; letter-spacing: 0.8px; margin: 10px 0 5px 0; border-bottom: 1px solid #d0d0d0; padding-bottom: 3px; }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 20px; font-size: 9.5pt; }
+  .skills-grid div { padding: 1px 0; }
+  .skill-cat { font-weight: 600; color: #333; }
+  .project { margin: 7px 0; }
+  .project-title { font-weight: 700; font-size: 10.5pt; }
+  .project-stack { font-size: 9pt; color: #2563eb; font-weight: 500; }
+  .project-desc { font-size: 9.5pt; margin-top: 1px; }
+  .project-desc ul { margin: 2px 0 0 14px; }
+  .project-desc li { margin-bottom: 1px; }
+  .edu { margin: 4px 0; }
+  .edu-title { font-weight: 700; font-size: 10.5pt; }
+  .edu-detail { font-size: 9.5pt; color: #444; }
+  @media print { body { padding: 0; max-width: none; } }
+</style>
+</head>
+<body>
+
+<h1>Varun C</h1>
+<div class="subhead">2nd Year B.E. ECE Student | Embedded Systems &amp; AI Developer</div>
+<div class="contact">
+  <span>Trichy, Tamil Nadu</span>
+  <span>mr.varun1980@gmail.com</span>
+  <span>+91 94896 10076</span>
+  <a href="https://github.com/VARUN122134">github.com/VARUN122134</a>
+  <a href="https://linkedin.com/in/varunc">linkedin.com/in/varunc</a>
+</div>
+<hr>
+
+<div class="section-title">Technical Skills</div>
+<div class="skills-grid">
+  <div><span class="skill-cat">Hardware &amp; Embedded:</span> ESP32, NodeMCU, Arduino, ESP32-CAM, Sensor Interfacing (I2C/SPI/UART), Breadboard Prototyping</div>
+  <div><span class="skill-cat">Languages:</span> C, C++, Embedded C, Python, JavaScript, Verilog</div>
+  <div><span class="skill-cat">AI &amp; Software:</span> ChromaDB, LLM Integration (LiteLLM), OpenCV, MediaPipe, REST APIs, WebSockets</div>
+  <div><span class="skill-cat">Web &amp; Backend:</span> FastAPI, Next.js, React, Vite, Supabase, Firebase, Capacitor (Android APK)</div>
+  <div><span class="skill-cat">Quant &amp; Finance:</span> Fyers API, Angel One API, Algorithmic Strategy Backtesting, yfinance, pandas</div>
+  <div><span class="skill-cat">Tools:</span> Git, GitHub, Arduino IDE, PlatformIO, Verilator, Icarus Verilog, Vite</div>
+</div>
+
+<div class="section-title">Key Projects</div>
+
+<div class="project">
+  <div class="project-title">Hostel Management System <span class="project-stack">— Supabase · Vite · Capacitor · Chart.js</span></div>
+  <div class="project-desc">
+    Full-featured hostel management system with 5 user roles (Student, Caretaker, Gate, Mess, Admin), QR-based outpass, mess management, real-time dashboards, and audit logging. Built as a mobile-first web app with Android APK via Capacitor.
+    <ul>
+      <li>QR code outpass scanning + generation with html5-qrcode</li>
+      <li>Auto-attendance scheduler with background service</li>
+      <li>Role-based access control with approval workflow</li>
+      <li>Chart.js dashboards for data visualization</li>
+    </ul>
+  </div>
+</div>
+
+<div class="project">
+  <div class="project-title">Project Zero — Autonomous AI Agent <span class="project-stack">— Python · LiteLLM · ChromaDB · FastAPI</span></div>
+  <div class="project-desc">
+    Advanced autonomous AI agent framework with 4 specialist roles (Scripter, Architect, Heavy, Sentry) routed via Gatekeeper. Persistent ChromaDB vector memory across all conversations. Native OS command execution and file I/O.
+    <ul>
+      <li>Multi-model orchestration (Groq LLaMA + Gemini via LiteLLM)</li>
+      <li>Autonomous goal decomposition via /goal prefix with Director agent</li>
+      <li>Web UI with SSE streaming and execution logs</li>
+      <li>Multi-modal vision analysis via base64 image encoding</li>
+    </ul>
+  </div>
+</div>
+
+<div class="project">
+  <div class="project-title">AI Interview Simulator <span class="project-stack">— Next.js · FastAPI · Firebase · Framer Motion</span></div>
+  <div class="project-desc">
+    AI-powered virtual interview platform with resume parsing, automatic question generation (JD + resume overlap), and candidate scoring. Features AI-proctored video interviews with real-time transcription and TTS.
+    <ul>
+      <li>5-question flow: 3 technical + 2 behavioral with Fit Score (0-100)</li>
+      <li>Resume parsing and competency extraction</li>
+      <li>Admin dashboard with scoring rubric management and leaderboard</li>
+      <li>Glass-morphism UI with dark theme</li>
+    </ul>
+  </div>
+</div>
+
+<div class="project">
+  <div class="project-title">ALS — Eye-Blink Assistive Communicator <span class="project-stack">— Python · OpenCV · MediaPipe · pyttsx3</span></div>
+  <div class="project-desc">
+    Computer-vision-based assistive communication for people with motor disabilities. Uses MediaPipe Face Landmarker for dual-eye tracking and EAR algorithm for blink pattern detection.
+    <ul>
+      <li>Blink patterns: 2 blinks = food, 3 = water, 4+ = emergency/call doctor</li>
+      <li>Real-time TTS output via background thread</li>
+      <li>Dashboard with blink count, EAR value, and eye state visualization</li>
+    </ul>
+  </div>
+</div>
+
+<div class="project">
+  <div class="project-title">TRADE 2026 — Algo Trading Platform <span class="project-stack">— FastAPI · React 19 · WebSocket · Angel One</span></div>
+  <div class="project-desc">
+    Full-stack algorithmic trading platform with paper/live trading, real-time WebSocket updates, and backtesting engine. Integrates with Angel One broker API.
+    <ul>
+      <li>EMA Crossover + Supertrend + RSI strategy with configurable parameters</li>
+      <li>Multi-symbol support (SBIN, TATASTEEL, ITC, TATAMOTORS, INFY)</li>
+      <li>Real-time P&L charts via Recharts with WebSocket streaming</li>
+      <li>Daily max loss/profit halting and risk per trade management</li>
+    </ul>
+  </div>
+</div>
+
+<div class="project">
+  <div class="project-title">Virtual UI — Hand Gesture Control <span class="project-stack">— Python · OpenCV · MediaPipe · pyautogui</span></div>
+  <div class="project-desc">
+    Hand gesture-controlled virtual interface controlling multiple applications via webcam. Tracks 21 hand landmarks for real-time gesture recognition.
+    <ul>
+      <li>Virtual mouse via index finger tracking</li>
+      <li>Air writing/drawing on virtual pad</li>
+      <li>Gesture-controlled Snake game and calculator</li>
+      <li>PowerPoint slide control via hand gestures</li>
+    </ul>
+  </div>
+</div>
+
+<div class="project">
+  <div class="project-title">Digital Clock Vibe <span class="project-stack">— Verilog · Icarus Verilog · FPGA</span></div>
+  <div class="project-desc">
+    Advanced digital clock design in Verilog with multiple operating modes. Features cascading counters, BCD-to-7-segment decoding, and button edge detection.
+    <ul>
+      <li>4 modes: CLOCK, SET_TIME, SET_ALARM, STOPWATCH</li>
+      <li>12/24 hour format toggle with AM/PM indicator</li>
+      <li>Alarm with 10-second ring duration</li>
+      <li>Stopwatch with seconds and hundredths precision</li>
+    </ul>
+  </div>
+</div>
+
+<div class="project">
+  <div class="project-title">Fyers API Algorithmic Trading Bots <span class="project-stack">— Python · Fyers API · yfinance · pandas</span></div>
+  <div class="project-desc">
+    Automated trading signal generators for Indian stocks using EMA crossover and RSI strategies. Integrates with Fyers v3 API for real-time market data.
+    <ul>
+      <li>BUY signals: EMA 9 above EMA 21, RSI > 50, price above EMA 200</li>
+      <li>SELL signals: EMA 9 below EMA 21, RSI < 50, price below EMA 200</li>
+      <li>Multi-Timeframe Analysis (MTFA) backtesting</li>
+      <li>Fyers OAuth-based token generation with local HTTP server</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section-title">Other Projects</div>
+<div class="skills-grid" style="font-size:9pt;">
+  <div>WhatsApp Simulator (Flutter · Firebase · Agora)</div>
+  <div>Suma Coffee Shop Manager (React · Firebase)</div>
+  <div>LMS 3D Motherboard Simulation (Three.js · GSAP)</div>
+  <div>Interactive Birthday Card (Web Audio API · Canvas)</div>
+  <div>AR Hand Tracking (MediaPipe Tasks · Web Audio)</div>
+  <div>NIFTY Options MTFA Backtester (Python · yfinance)</div>
+  <div>Smart Energy Meter Research (IoT Papers)</div>
+  <div>Study Trackers (HTML/CSS/JS · LocalStorage)</div>
+  <div>AUTO MIST System (IoT Presentation)</div>
+  <div>Energy Motor Monitor (Python)</div>
+</div>
+
+<div class="section-title">Leadership &amp; Initiatives</div>
+<div class="project">
+  <div class="project-title">Founder @ MOON / Pyrose</div>
+  <div class="project-desc">
+    Student innovation collective focused on building custom hardware prototypes, web applications, and AI solutions for real-world campus and community utility. Architected tools including the Hostel Management System adopted by university operations.
+  </div>
+</div>
+
+<div class="section-title">Education</div>
+<div class="edu">
+  <div class="edu-title">B.E. in Electronics and Communication Engineering</div>
+  <div class="edu-detail">Anna University — University College of Engineering Ariyalur (UCE Ariyalur) | Expected 2029</div>
+  <div class="edu-detail">2nd Year | Relevant Coursework: Circuit Analysis, Digital System Design, Microcontrollers &amp; Embedded Systems, Data Structures &amp; Algorithms, VLSI Design</div>
+</div>
+
+</body>
+</html>
