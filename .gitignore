@@ -1,0 +1,10 @@
+# Resume files (kept at root)
+Resume/
+
+# Temp/reference files
+*.zip
+dfghjkl.png
+
+# System
+.DS_Store
+Thumbs.db
